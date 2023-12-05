@@ -1,0 +1,38 @@
+C:\Users\Uczeń>cd c:\xampp\mysql\bin
+
+c:\xampp\mysql\bin>.\mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+MariaDB [(none)]> CREATE DATABASE Test;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use Test
+Database changed
+
+MariaDB [Test]> CREATE TABLE SAMOCHODY(ID INT auto_increment, marka varchar(30), model varchar(30), rocznik INT, przyspieszenie float, PRIMARY KEY(ID));
+Query OK, 0 rows affected (0.018 sec)
+
+MariaDB [Test]> INSERT INTO SAMOCHODY VALUES(null, "Bentley", "Polonez", 2005, 4.6);
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [Test]> SELECT * FROM samochody;
++----+---------+---------+---------+----------------+
+| ID | marka   | model   | rocznik | przyspieszenie |
++----+---------+---------+---------+----------------+
+|  1 | Bentley | Polonez |    2005 |            4.6 |
++----+---------+---------+---------+----------------+
+1 row in set (0.000 sec)
+
+MariaDB [Test]> INSERT INTO samochody (marka, model, rocznik, przyspieszenie) VALUES("Ford", "Escalade", 2011, 6.8);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [Test]> SELECT * FROM samochody;
++----+---------+----------+---------+----------------+
+| ID | marka   | model    | rocznik | przyspieszenie |
++----+---------+----------+---------+----------------+
+|  1 | Bentley | Polonez  |    2005 |            4.6 |
+|  2 | Ford    | Escalade |    2011 |            6.8 |
++----+---------+----------+---------+----------------+
+2 rows in set (0.000 sec)
