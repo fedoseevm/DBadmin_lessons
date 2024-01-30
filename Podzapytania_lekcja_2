@@ -20,3 +20,10 @@ FROM agenci
 LEFT JOIN imprezy ON agenci.IDAgenta=imprezy.IDAgenta
 WHERE imprezy.IDAgenta IS NULL;
 
+# 3. Wyświetl wszystkich klientów agencji i datę ostatniej rezerwacji każdego z nich
+SELECT klienci.ImieKlienta,
+klienci.NazwiskoKlienta,
+MAX(imprezy.DzienRozpoczecia) as OstatniaRezerwacja
+FROM klienci 
+INNER JOIN imprezy ON klienci.IDKlienta = imprezy.IDKlienta
+GROUP BY klienci.IDKlienta;
