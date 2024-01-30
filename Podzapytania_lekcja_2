@@ -1,0 +1,22 @@
+# 1. Wymień składniki nieużywanie dotąd w żadnym przepisie
+SELECT skladniki.NazwaSkladnika
+FROM skladniki
+LEFT JOIN skladniki_przepisow ON skladniki.IDSkladnika = skladniki_przepisow.IDPrzepisu
+WHERE skladniki_przepisow.IDPrzepisu IS NULL;
+
+# Albo tak
+SELECT skladniki.IDSkladnika, skladniki.NazwaSkladnika
+FROM skladniki 
+WHERE skladniki.IDSkladnika NOT IN 
+(SELECT skladniki.IDSkladnika 
+ FROM skladniki INNER JOIN skladniki_przepisow 
+ ON skladniki.IDSkladnika=skladniki_przepisow.IDPrzepisu 
+ INNER JOIN przepisy 
+ ON skladniki_przepisow.IDPrzepisu=przepisy.IDPrzepisu);
+
+# 2. Wyświetł agentów, którzy dotychczas nie podpisali kontraktu z żadnym wyjonawcą (nie mają żadnej imprezy)
+SELECT agenci.ImieAgenta, agenci.NazwiskoAgenta
+FROM agenci
+LEFT JOIN imprezy ON agenci.IDAgenta=imprezy.IDAgenta
+WHERE imprezy.IDAgenta IS NULL;
+
