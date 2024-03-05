@@ -1,0 +1,36 @@
+# Zadanie 1
+# Tresc
+SELECT 
+    przepisy.NazwaPrzepisu, 
+    skladniki.NazwaSkladnika
+FROM 
+    przepisy
+INNER JOIN 
+    skladniki_przepisow ON przepisy.IDPrzepisu = skladniki_przepisow.IDPrzepisu
+INNER JOIN 
+    skladniki ON skladniki_przepisow.IDSkladnika = skladniki.IDSkladnika
+WHERE 
+    przepisy.IDPrzepisu IN (
+        SELECT 
+            przepisy.IDPrzepisu
+        FROM 
+            przepisy
+        INNER JOIN 
+            skladniki_przepisow ON przepisy.IDPrzepisu = skladniki_przepisow.IDPrzepisu
+        INNER JOIN 
+            skladniki ON skladniki_przepisow.IDSkladnika = skladniki.IDSkladnika
+        INNER JOIN 
+            kategorie_skladnikow ON skladniki.IDKategoriiSkladnika = kategorie_skladnikow.IDKategoriiSkladnika
+        WHERE 
+            kategorie_skladnikow.OpisKategoriiSkladnika = "Owoce morza"
+    );
+
+
+# Zadanie 2
+# Tresc
+SELECT klienci.ImieKlienta, klienci.NazwiskoKlienta, zamowienia.NumerZamowienia , zamowienia.DataZamowienia, produkty.NazwaProduktu, dane_zamowien.ZamowionaIlosc, dane_zamowien.CenaZakupu
+FROM klienci
+INNER JOIN zamowienia ON klienci.IDKlienta = zamowienia.IDKlienta
+INNER JOIN dane_zamowien ON zamowienia.NumerZamowienia = dane_zamowien.NumerZamowienia
+INNER JOIN produkty ON dane_zamowien.NumerProduktu = produkty.NumerProduktu
+WHERE zamowienia.DataZamowienia = (SELECT MAX(zamowienia.DataZamowienia) from zamowienia WHERE zamowienia.IDKlienta = klienci.IDKlienta);
