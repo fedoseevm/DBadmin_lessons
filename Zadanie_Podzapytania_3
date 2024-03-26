@@ -1,0 +1,14 @@
+# 1
+# Wyświetlić osobę i zamowione przez niej produkty z ilością sztuk 
+SELECT zamowienia.NumerZamowienia, klienci.ImieKlienta, klienci.NazwiskoKlienta, produkty.NazwaProduktu, dane_zamowien.ZamowionaIlosc
+FROM klienci
+INNER JOIN zamowienia ON klienci.IDKlienta = zamowienia.IDKlienta
+INNER JOIN dane_zamowien ON zamowienia.NumerZamowienia = dane_zamowien.NumerZamowienia
+INNER JOIN produkty ON dane_zamowien.NumerProduktu = produkty.NumerProduktu;
+
+# 2
+# Policzyć ilość zakupionych sztuk dla każdego produktu
+SELECT produkty.NazwaProduktu, SUM(dane_zamowien.ZamowionaIlosc) as Sztuk
+FROM produkty
+INNER JOIN dane_zamowien ON produkty.NumerProduktu = dane_zamowien.NumerProduktu
+GROUP BY produkty.NazwaProduktu;
