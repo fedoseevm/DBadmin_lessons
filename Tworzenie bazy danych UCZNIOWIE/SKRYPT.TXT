@@ -1,0 +1,61 @@
+DROP DATABASE IF EXISTS uczniowie;
+CREATE DATABASE uczniowie;
+USE uczniowie;
+
+CREATE TABLE NAUCZYCIELE (
+    ID_nauczyciela INT AUTO_INCREMENT PRIMARY KEY,
+    Imie varchar(50),
+    Nazwisko varchar(50),
+    PESEL varchar(11)
+);
+
+CREATE TABLE KLASY (
+    ID_klasy INT AUTO_INCREMENT PRIMARY KEY,
+    Nazwa varchar(255),
+    Nauczyciel INT,
+    FOREIGN KEY (Nauczyciel) REFERENCES NAUCZYCIELE(ID_nauczyciela)
+);
+
+CREATE TABLE DANE_PERSONALNE (   
+   	ID_ucznia INT AUTO_INCREMENT PRIMARY KEY,
+	Imie varchar(50),
+    Nazwisko varchar(50),
+    Miasto_urodzenia varchar(75),
+    Data_urodzenia DATE,
+    Kod_pocztowy varchar(10),
+    Miasto varchar(75),
+    Ulica varchar(75),
+    Nr_domu INT,
+    PESEL varchar(11),
+    Nr_telefonu_ucznia varchar(12),
+    Nr_telefonu_rodzica varchar(12),
+    imOjca varchar(50),
+    imMatki varchar(50),
+    ID_klasy INT,
+    FOREIGN KEY (ID_klasy) REFERENCES KLASY(ID_klasy)
+);
+
+INSERT INTO NAUCZYCIELE 
+VALUES 
+	(NULL, "Bartosz", "Nowak", "12345678900"),
+    (NULL, "Jan", "Kowalski", "09876543210"),
+	(NULL, "Anna", "Zielińska", "10293847560"),
+	(NULL, "Piotr", "Wiśniewski", "01928374650"),
+	(NULL, "Katarzyna", "Szymańska", "56473829100");
+
+INSERT INTO KLASY 
+VALUES
+	(NULL, "1A", 1),
+	(NULL, "2B", 2),
+	(NULL, "3C", 3),
+	(NULL, "4D", 4),
+	(NULL, "5E", 5);
+    
+INSERT INTO DANE_PERSONALNE
+VALUES
+	(NULL, "Jan", "Kowalski", "Warszawa", "2005-05-01", "00-001", "Warszawa", "Marszałkowska", 1, "05050112345", "123456789", "987654321", "Adam", "Ewa", 1),
+	(NULL, "Anna", "Nowak", "Kraków", "2006-06-02", "30-002", "Kraków", "Floriańska", 2, "06060223456", "234567890", "098765432", "Bartosz", "Katarzyna", 2),
+	(NULL, "Piotr", "Wiśniewski", "Wrocław", "2007-07-03", "50-003", "Wrocław", "Oławska", 3, "07070334567", "345678901", "109876543", "Cezary", "Magdalena", 3),
+	(NULL, "Katarzyna", "Zielińska", "Poznań", "2008-08-04", "60-004", "Poznań", "Półwiejska", 4, "08080445678", "456789012", "210987654", "Dariusz", "Joanna", 4),
+	(NULL, "Marek", "Jankowski", "Gdańsk", "2009-09-05", "80-005", "Gdańsk", "Długa", 5, "09090556789", "567890123", "321098765", "Eugeniusz", "Barbara", 5);
+    
